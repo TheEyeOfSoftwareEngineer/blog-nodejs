@@ -1,0 +1,26 @@
+{
+  "name": "blog-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./blog-nodejs/bin/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=dev nodemon ./blog-nodejs/bin/main.js",
+    "prd": "cross-env NODE_ENV=production nodemon ./blog-nodejs./bin/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheEyeOfSoftwareEngineer/blog-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheEyeOfSoftwareEngineer/blog-nodejs/issues"
+  },
+  "homepage": "https://github.com/TheEyeOfSoftwareEngineer/blog-nodejs#readme",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "lodash": "^4.17.20"
+  }
+}
