@@ -21,6 +21,7 @@
   "homepage": "https://github.com/TheEyeOfSoftwareEngineer/blog-nodejs#readme",
   "dependencies": {
     "cross-env": "^7.0.3",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "mysql": "^2.18.1"
   }
 }

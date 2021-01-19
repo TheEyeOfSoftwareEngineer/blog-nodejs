@@ -50,3 +50,6 @@ select * from blogs where author = 'zhangsan' order by createtime desc;
 -- 查询类似标题的文章
 select * from blogs where title like '%A%';
 ```
+
+### varchar
+MySQL版本大于等于5时,varchar(10)代表的是无论是英文还是汉字都是10个字符,不再是英文存储10个而汉字存储5个;
