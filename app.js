@@ -41,11 +41,11 @@ const serverHandle = (req, res) => {
   // 获取query
   req.query = querystring.parse(url.split('?')[1])
 
-  getPostData(req).then(postData=> {
+  getPostData(req).then(async postData=> {
     req.body = postData
 
     // 处理blog路由
-    const blogData = handlerBlogRouter(req, res)
+    const blogData = await handlerBlogRouter(req, res)
     if(blogData) {
       res.end(
         JSON.stringify(blogData)
@@ -54,7 +54,7 @@ const serverHandle = (req, res) => {
     }
 
     // 处理user路由
-    const userData = handlerUserRouter(req, res)
+    const userData = await handlerUserRouter(req, res)
     if(userData) {
       res.end(
         JSON.stringify(userData)

@@ -1,53 +1,59 @@
+const {exec} = require('../db/mysql')
+
 const getList = (author, keyword) => {
-  // 先返回fake data,但是需要保证格式正确
-  return [
-    {
-      id: 1,
-      title: "标题A",
-      content: "内容A",
-      createTime: 1610950330874,
-      author: "zhangsan"
-    },
-    {
-      id: 2,
-      title: "标题B",
-      content: "内容B",
-      createTime: 1610950374343,
-      author: "lisi"
-    }
-  ]
+  let sql = `select * from blogs where 1=1 `
+  if(author) {
+    sql += `and author='${author}' `
+  }
+  if(keyword) {
+    sql += `and title like '%${keyword}%' `
+  }
+  sql += `order by createtime desc;`
+
+  // 返回promise
+  return exec(sql)
+  
 }
 
 const getDetail  = id => {
-  return {
-    id: 1,
-    title: "标题A",
-    content: "内容A",
-    createTime: 1610950330874,
-    author: "zhangsan"
-  }
+  const sql = `select * from blogs where id='${id}'`
+  return exec(sql).then(rows => {
+    return rows[0]
+  })
 }
 
 const newBlog = (blogData = {}) => {
-  // blogData对象中有title content 属性
+  // blogData对象中有title content author 属性
+  const title = blogData.title
+  const content = blogData.content
+  const author = blogData.author
+  const createtime = Date.now()
 
-  console.log("blog data: ", blogData)
+  const sql = `insert into blogs (title, content, createtime, author) values ('${title}', '${content}', ${createtime}, '${author}')`
 
-  return {
-    // 表示新建博客在数据表中的id位置
-    id: 3
-  }  
+  return exec(sql).then(data => {
+    return {
+      id: data.insertId
+    }
+  })  
 }
 
 const updateBlog = (id, blogData={}) => {
 
-  console.log("update blog: ", id, blogData)
+  const title = blogData.title
+  const content = blogData.content
 
-  return true
+  const sql = `update blogs set title='${title}', content='${content}' where id=${id}`
+  return exec(sql).then(data=> {
+    return data.affectedRows == 1
+  })
 }
 
-const delBlog = id => {
-  return true
+const delBlog = (id, author) => {
+  const sql = `delete from blogs where id=${id} and author='${author}'`
+  return exec(sql).then(data=> {
+    return data.affectedRows == 1
+  })
 }
 
 module.exports = {
