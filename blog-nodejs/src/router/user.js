@@ -5,9 +5,9 @@ const handlerUserRouter = async (req, res) => {
   const method = req.method
 
   // 登录
-  if(method === 'GET' && req.path === '/api/user/login') {
-    // const {username, password} = req.body
-    const {username, password} = req.query    
+  if(method === 'POST' && req.path === '/api/user/login') {
+    const {username, password} = req.body
+    // const {username, password} = req.query    
     const result = await login(username, password)
     if(result.username) {
       // 设置session
@@ -21,16 +21,16 @@ const handlerUserRouter = async (req, res) => {
     return new ErrorModel('登录失败')
   }
 
-  // 登录测试
-  if(method === 'GET' && req.path === '/api/user/login-test') {
+  // // 登录测试
+  // if(method === 'GET' && req.path === '/api/user/login-test') {
     
-    if(req.session.username) {
-      return new SuccessModel({
-        session: req.session
-      })
-    }
-    return new ErrorModel('您还未登录')
-  }
+  //   if(req.session.username) {
+  //     return new SuccessModel({
+  //       session: req.session
+  //     })
+  //   }
+  //   return new ErrorModel('您还未登录')
+  // }
 
 }
 
