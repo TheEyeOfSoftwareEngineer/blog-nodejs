@@ -3,6 +3,8 @@ const querystring = require('querystring')
 const handlerBlogRouter = require('./blog-nodejs/src/router/blog')
 const handlerUserRouter = require('./blog-nodejs/src/router/user')
 
+const {access} = require('./blog-nodejs/src/utils/log')
+
 // 处理post data
 const getPostData = req => {
   const promise = new Promise((resolve, reject)=> {
@@ -42,6 +44,9 @@ const getCookieExpires = () => {
 const SESSION_DATA = {}
 
 const serverHandle = (req, res) => {
+  // 记录access log
+  access(`${req.method} -- ${req.url} -- ${req.headers['user-agent']} -- ${Date.now()}`)
+
   // 设置返回头格式
   res.setHeader('Content-Type', 'application/json')
   // 获取path
