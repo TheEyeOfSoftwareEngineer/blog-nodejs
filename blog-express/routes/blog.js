@@ -16,7 +16,9 @@ router.get('/list', function(req, res, next) {
   const keyword = req.query.keyword || ''
 
   if(req.query.isadmin) {
+    console.log("is admin")
     if(req.session.username==null) {
+      console.log("is admin, but not login in")
       res.json(
         new ErrorModel('未登录')
       )

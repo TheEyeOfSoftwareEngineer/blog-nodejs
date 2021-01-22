@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+const fs = require('fs')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session')
@@ -8,6 +9,7 @@ const RedisStore = require('connect-redis')(session)
 
 const {BASE_CONF} = require('./conf/db')
 
+const ENV = process.env.NODE_ENV
 
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
@@ -21,7 +23,20 @@ var app = express();
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
 
-app.use(logger('dev')); //日志
+if (ENV !== 'production') {
+  // 开发环境或者测试环境
+  app.use(logger('dev')); //日志
+} else {
+  // 线上环境
+  const logFilename = path.join(__dirname, 'log', 'access.log')
+  const writeStream = fs.createWriteStream(logFilename, {
+    flags: 'a'
+  })
+  app.use(logger('combined', {
+    stream: writeStream
+  }))
+}
+
 app.use(express.json()); //解析数据格式为JSON的数据 
 app.use(express.urlencoded({ extended: false })); //解析数据格式为非JSON的数据格式
 app.use(cookieParser()); //解析cookie
