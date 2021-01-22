@@ -1,5 +1,6 @@
 const {login} = require('../controller/user')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
+const {set} = require('../db/redis')
 
 const handlerUserRouter = async (req, res) => {
   const method = req.method
@@ -14,7 +15,8 @@ const handlerUserRouter = async (req, res) => {
       req.session.username = result.username
       req.session.realname = result.realname
 
-      console.log("req session: ", req.session)
+      // 同步到redis
+      set(req.sessionId, req.session)
 
       return new SuccessModel('登陆成功')
     }

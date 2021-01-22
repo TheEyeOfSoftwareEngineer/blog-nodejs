@@ -44,8 +44,7 @@ const handlerBlogRouter = async (req, res) => {
       return loginCheck
     }
 
-    const author = req.session.username
-    req.body.author = author // 假数据 欠缺登录模块
+    req.body.author = req.session.username
     const blogData = req.body
     const data = await newBlog(blogData)
     return new SuccessModel(data)

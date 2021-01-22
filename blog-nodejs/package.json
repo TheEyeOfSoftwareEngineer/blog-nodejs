@@ -5,8 +5,8 @@
   "main": "./blog-nodejs/bin/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cross-env NODE_ENV=dev nodemon ./blog-nodejs/bin/main.js",
-    "prd": "cross-env NODE_ENV=production nodemon ./blog-nodejs./bin/main.js"
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/main",
+    "prd": "cross-env NODE_ENV=production nodemon ./bin/main.js"
   },
   "repository": {
     "type": "git",

@@ -1,9 +1,9 @@
 const querystring = require('querystring')
 
-const handlerBlogRouter = require('./blog-nodejs/src/router/blog')
-const handlerUserRouter = require('./blog-nodejs/src/router/user')
+const handlerBlogRouter = require('./src/router/blog')
+const handlerUserRouter = require('./src/router/user')
 
-const {access} = require('./blog-nodejs/src/utils/log')
+const {access} = require('./src/utils/log')
 
 // 处理post data
 const getPostData = req => {
