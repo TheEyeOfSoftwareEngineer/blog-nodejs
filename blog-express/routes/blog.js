@@ -12,7 +12,7 @@ const { SuccessModel, ErrorModel } = require('../model/resModel')
 const loginCheck = require('../middleware/loginCheck')
 
 router.get('/list', function(req, res, next) {
-  const author = req.query.author || ''
+  let author = req.query.author || ''
   const keyword = req.query.keyword || ''
 
   if(req.query.isadmin) {
@@ -65,7 +65,7 @@ router.post('/update', loginCheck, async (req, res, next) => {
 
 router.post('/delete', loginCheck, async (req, res, next)=> {
   const author = req.session.username
-  const result = await delBlog(id, author)
+  const result = await delBlog(req.query.id, author)
   if(result) {
     res.json(
       new SuccessModel('删除成功')
